@@ -9,7 +9,7 @@ https://medium.com/@fastlane80/setup-react-js-with-npm-babel-6-and-webpack-in-un
 It's quite good
 )))
 
-Let's go through some tools and what they do!
+First let's go through some tools / terms and what they do / mean!
 
 *Node*
 - JavaScript Runtime
@@ -20,10 +20,10 @@ Let's go through some tools and what they do!
 
 *package.json*
 - Project Description
-- Dependencies, git repo, author etc
+- Dependencies, git repo, author, etc.
 
 *ECMAScript*
-- Standarded Specification for JavaScript
+- Standardized Specification for JavaScript
 - Could say JavaScript is an implementation of ECMAScript
 
 *Webpack*
