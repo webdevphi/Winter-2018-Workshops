@@ -1,1 +1,2 @@
-1-React/node_modules/
+**/node_modules
+bundle.js
