@@ -1,0 +1,11 @@
+{
+  "name": "2-react-pt2-styles-and-routing",
+  "version": "1.0.0",
+  "description": "More advanced React! Routing and Styles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
