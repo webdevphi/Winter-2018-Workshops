@@ -2,10 +2,12 @@ React is an amazing front end library for creating `fun`
 
 **Inital setup**
 
+(((
 TLDR: 
 literally just follow this
 https://medium.com/@fastlane80/setup-react-js-with-npm-babel-6-and-webpack-in-under-1-hour-1a714f973506
-It's quite good :)
+It's quite good
+)))
 
 Let's go through some tools and what they do!
 
@@ -36,3 +38,125 @@ Let's go through some tools and what they do!
 *JSX*
 - HTML templating superset of JavaScript
 - Write html alongside JavaScript!
+
+1 - First thing make sure you have node installed.
+https://nodejs.org/en/download/
+
+2 - Make a folder and initialize a package.json
+
+```npm init```
+it'll ask you a bunch of questions, like git repo name etc, fill in what you can, but we'll leave most of it blank for now.
+
+3 - install everything!!!
+
+we need to install babel, react, webpack, and all their dependencies..
+
+we use `npm install <package>` to install things but it's nice to do `npm install --save <package>` since it'll show up in the package.json so even if you delete `node_modules` you can get them back easily
+
+`npm install --save webpack react react-dom babel-core babel-loader babel-preset-es2015 babel-preset-react`
+
+check on your `package.json` you should see a bunch of things the `dependencies` object. Also a `package-lock.json` this is a more accurate mapping (and more complex) of your dependencies but we don't need to worry about it.
+
+Now that we have everything installed, we need to do a bit of inital config
+
+*Babel*
+
+Create a `.babelrc` file and put the following in there
+```json
+{
+  "presets" : ["es2015", "react"]
+}
+```
+This is a simple one, all we are saying here is we want to use ECMAScript 2015 Spec and react (JSX)
+
+*Webpack*
+
+create a `webpack.config.js` file and put the following in there
+
+```javascript
+var webpack = require('webpack');
+var path = require('path');
+
+var BUILD_DIR = path.resolve(__dirname, 'build/');
+var APP_DIR = path.resolve(__dirname, 'src/');
+
+var config = {
+  entry: APP_DIR + '/index.jsx',
+  output: {
+    path: BUILD_DIR,
+    filename: 'bundle.js'
+  },
+  module : {
+    loaders : [
+      {
+        test : /\.jsx?/,
+        include : APP_DIR,
+        loader : 'babel-loader'
+      }
+    ]
+  }
+};
+
+module.exports = config;
+```
+This one is a bit more involved but bear with me!
+- first two lines are javascript import import statements
+- making the DIR variables just makes it easier below but `__dirname` is a global variable of your current directory and we'll just say that the bundled file will be in the `build/` folder and our app will live under `src/`
+- next in the config we show the entry (main) javascript file - we'll get to the jsx in a bit
+- we also have what are called loaders, which are intermediate steps that get thrown into the bundling process, so we are adding a step to transpile our `jsx` code in to plain javascript.
+
+Great! Now the inital setup is out of the way let's make our first hello world in react!
+
+**Hello World**
+
+There are a few things missing that we brushed over
+- Since this is a website we need a html file
+- The actual react code
+
+1 - `index.html`
+```html
+<html>
+  <head>
+    <title>
+      Phi Intro to React!
+    </title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="build/bundle.js"></script>
+  </body>
+</html>
+```
+We have two important things here
+- The div which our app will load into
+- The script is loaded after the div so in the javascript we can find the `#app` element
+
+2 - `src/index.jsx`
+```JSX
+import React from 'react'
+import { render } from 'react-dom'
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        Hello World
+      </div>
+    )
+  }
+}
+
+render(<App />, document.getElementById('app'))
+```
+Our app lives inside this `App` React Component.
+- We know something is a component if it extends `React.Component`
+- Components have a few important properties but right now all we care about is the render method will returns some JSX which eventually gets turned into HTML
+- We only have to call the main render (the last line of code) once for the entire app, this is also part of the JSX magic is that if a class extends `React.Component` we can instantiate it by calling `<{ClassName} />`
+- We also need to pass in the html element we will load the app into, in our case it'll be be the `#app` div from index.html
+
+*Run it!!*
+
+to compile everything you just have to run `webpack` in the root folder - if this doesn't work try to install webpack globally (`npm install --global webpack`)
+
+Now if you open index.html in a browser you should see "Hello World"!!
