@@ -143,7 +143,7 @@ class App extends React.Component {
       <div>
         Hello World
       </div>
-    )
+    );
   }
 }
 
@@ -160,3 +160,87 @@ Our app lives inside this `App` React Component.
 to compile everything you just have to run `webpack` in the root folder - if this doesn't work try to install webpack globally (`npm install --global webpack`)
 
 Now if you open index.html in a browser you should see "Hello World"!!
+
+**React Basics**
+
+Ok now lets get into React and understand it a bit more. 
+Let's change a few things from the above index.jsx, we want to be able to a) add variables into the template b) change thing dynamically.
+
+First, variables.
+
+React has 2 main ways we can (should) inject variables into components
+1 - Props
+2 - State
+
+First we'll see how Props work..
+
+*Props*
+
+In our above example we are missing one of the key parts of a class, the constructor! Of course we don't need it, but classes aren't too much fun without them, lets update our class to add one.
+```JSX
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>Hello {this.props.name}</div>
+    )
+  }
+}
+
+render(<App name="Marcel" />, document.getElementById('app')
+```
+- we can inject code into the jsx templates with `{` `}` we can put any javascript in there that will evaluate to a value.
+
+Now if you rebuild your code with `webpack` you should see "Hello Marcel" or whatever your name is :)
+So as you can tell props are static variables that come through the parent component or in this case, the render function call. They are useful for when you know something won't change over time, or very little. Every parameter you pass into the `App` component get's mapped to a property on `this.props`.
+Neat!
+
+*State*
+
+This is all good and fun but not very interactive. Lets add a text field so we can automatically update the person / thing we are greeting.
+
+first lets define a state object
+
+```JSX
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      otherName: ''
+    };
+  }
+  
+  //...
+}
+```
+we'll call the other name `otherName` since javascript has a very loose and dynamic type system we define the state in the constructor with default values mainly for readability to know what type each property is.
+
+Now to actually `change the state`
+
+```JSX
+...
+class App extends React.Component {
+  //...
+  
+  handleKeyPress(event) {
+    const text = event.target.value;
+    this.setState({
+      text: text
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <div>{this.props.name} says "Hello" to {this.state.otherName}!</div>
+        <textarea onKeyPress={this.handleKeyPress.bind(this)} />
+      </div>
+    )
+  }
+}
+```
+If you are familiar with javascript and html this won't look too crazy except you'll probably "wondering why the `.bind(this)`".. Well it's a bit complicated but basically handleKeyPress function get's called in a different context from this class (I know crazy right?) so we need to rebind it's `this` variable to our current object.
+- It's ok if you don't get that right now, just know when you use `this` in a function and you pass it as an event handler, you'll need to bind `this`
+
