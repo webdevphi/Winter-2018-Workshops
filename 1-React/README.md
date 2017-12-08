@@ -1,7 +1,9 @@
 React is a `fun` front end library for creating `fun` web apps!
 --
+**"I don't care just let me run it"**
+clone this repo, make you sure have the initial setup done, `cd 1-React && npm install && webpack` then open index.html :)
 
-**Inital setup**
+**Initial setup**
 
 (((
 TLDR: 
