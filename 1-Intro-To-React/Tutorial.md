@@ -1,4 +1,4 @@
-React is an amazing front end library for creating `fun` web apps!
+React is a `fun` front end library for creating `fun` web apps!
 --
 
 **Inital setup**
