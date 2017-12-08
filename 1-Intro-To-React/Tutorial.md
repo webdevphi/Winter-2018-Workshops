@@ -243,4 +243,9 @@ class App extends React.Component {
 ```
 If you are familiar with javascript and html this won't look too crazy except you'll probably "wondering why the `.bind(this)`".. Well it's a bit complicated but basically handleKeyPress function get's called in a different context from this class (I know crazy right?) so we need to rebind it's `this` variable to our current object.
 - It's ok if you don't get that right now, just know when you use `this` in a function and you pass it as an event handler, you'll need to bind `this`
+- It's worth mentioning we can only return one HTML element in the render function, so usually we just wrap everything in a div, cause why not..
+
+*Rebuild!!*
+
+Write things in that text field and you should see the text updating.
 
