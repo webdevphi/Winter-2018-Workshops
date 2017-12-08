@@ -175,7 +175,7 @@ Let's change a few things from the above index.jsx, we want to be able to a) add
 
 First, variables.
 
-React has 2 main ways we can (should) inject variables into components
+React has 2 main ways we can (should) inject variables into templates
 1 - Props
 2 - State
 
