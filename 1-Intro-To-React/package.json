@@ -1,0 +1,22 @@
+{
+  "name": "1-intro-to-react",
+  "version": "1.0.0",
+  "description": "Intro to React workshop - Phi 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdevphi/Winter-2018-Workshops.git"
+  },
+  "author": "Marcel-Alin Rusu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webdevphi/Winter-2018-Workshops/issues"
+  },
+  "homepage": "https://github.com/webdevphi/Winter-2018-Workshops#readme",
+  "dependencies": {
+    "react": "^16.2.0"
+  }
+}
