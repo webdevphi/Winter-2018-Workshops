@@ -37,15 +37,17 @@ First let's go through some tools / terms and what they do / mean!
 
 *JSX*
 - HTML templating superset of JavaScript
-- Write html alongside JavaScript!
+- Write HTMl in JavaScript files with the ability to inject JavaScript into HTML!
 
 1 - First thing make sure you have node installed.
-https://nodejs.org/en/download/
+https://nodejs.org/en/download/ (8 or 9 are fine, doesn't matter for this workshop)
 
-2 - Make a folder and initialize a package.json
+  - to make very node / npm is installed correctly on your computer try to run `node -v` and `npm -v` in a cmd prompt / terminal.
 
-```npm init```
-it'll ask you a bunch of questions, like git repo name etc, fill in what you can, but we'll leave most of it blank for now.
+2 - Make a folder called `intro-to-react` and initialize a package.json
+
+Open a terminal and run the command ```npm init``` inside the folder `intro-to-react`
+it'll ask you a bunch of questions, like git repo, name etc, fill in what you can, but we'll leave most of it blank for now.
 
 3 - install everything!!!
 
@@ -55,7 +57,7 @@ we use `npm install <package>` to install things but it's nice to do `npm instal
 
 `npm install --save webpack react react-dom babel-core babel-loader babel-preset-es2015 babel-preset-react`
 
-check on your `package.json` you should see a bunch of things the `dependencies` object. Also a `package-lock.json` this is a more accurate mapping (and more complex) of your dependencies but we don't need to worry about it.
+check on your `package.json` you should see a bunch of things the `dependencies` object. Also you'll notice a `package-lock.json` file, this is a more accurate (and more complex) mapping of your dependencies, thankfully we never have to directly work in it.
 
 Now that we have everything installed, we need to do a bit of inital config
 
@@ -67,7 +69,8 @@ Create a `.babelrc` file and put the following in there
   "presets" : ["es2015", "react"]
 }
 ```
-This is a simple one, all we are saying here is we want to use ECMAScript 2015 Spec and react (JSX)
+This is a simple one, all we are saying here is we want babel to translate our code from es2015 Spec and the React (JSX) code to regular es5 code. 
+.. Yes the version names of ECMAScript (es) / JavaScript are awful and really confusing but all we have to understand is that ES5 is the version of ECMAScript that runs in most browsers.
 
 *Webpack*
 
@@ -101,7 +104,7 @@ module.exports = config;
 ```
 This one is a bit more involved but bear with me!
 - first two lines are javascript import import statements
-- making the DIR variables just makes it easier below but `__dirname` is a global variable of your current directory and we'll just say that the bundled file will be in the `build/` folder and our app will live under `src/`
+- making the DIR variables just makes it easier below. `__dirname` is a global string variable of your current directory and we'll just say that the bundled file will be in the `build/` folder and our app will live under `src/`
 - next in the config we show the entry (main) javascript file - we'll get to the jsx in a bit
 - we also have what are called loaders, which are intermediate steps that get thrown into the bundling process, so we are adding a step to transpile our `jsx` code in to plain javascript.
 
