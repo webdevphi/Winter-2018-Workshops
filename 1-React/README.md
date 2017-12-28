@@ -9,13 +9,6 @@ React is a `fun` front end library for creating `fun` web apps!
 
 **Initial setup**
 
-(((
-TLDR: 
-literally just follow this
-https://medium.com/@fastlane80/setup-react-js-with-npm-babel-6-and-webpack-in-under-1-hour-1a714f973506
-It's quite good
-)))
-
 First let's go through some tools / terms and what they do / mean!
 
 *Node*
