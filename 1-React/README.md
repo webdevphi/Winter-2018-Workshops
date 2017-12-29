@@ -69,8 +69,8 @@ Create a `.babelrc` file and put the following in there
   "presets" : ["es2015", "react"]
 }
 ```
-This is a simple one, all we are saying here is we want babel to translate our code from es2015 Spec and the React (JSX) code to regular es5 code. 
-.. Yes the version names of ECMAScript (es) / JavaScript are awful and really confusing but all we have to understand is that ES5 is the version of ECMAScript that runs in most browsers.
+All we are saying here is we want babel to translate our code from es2015 Spec and the React (JSX) code to regular es5 code. 
+.. Yes the version names of ECMAScript (es) / JavaScript are awful and confusing but all we have to understand is that ES5 is the version of ECMAScript that runs in most browsers.
 
 *Webpack*
 
@@ -102,19 +102,17 @@ var config = {
 
 module.exports = config;
 ```
-This one is a bit more involved but bear with me!
+This one is a bit more involved
 - first two lines are javascript import import statements
 - making the DIR variables just makes it easier below. `__dirname` is a global string variable of your current directory and we'll just say that the bundled file will be in the `build/` folder and our app will live under `src/`
-- next in the config we show the entry (main) javascript file - we'll get to the jsx in a bit
-- we also have what are called loaders, which are intermediate steps that get thrown into the bundling process, so we are adding a step to transpile our `jsx` code in to plain javascript.
+- next in the config we show the entry (main) javascript / jsx file 
+- we also have what are called loaders, which are intermediate steps that get thrown into the bundling process, so we are adding a `babel` step to transpile our `jsx` code in to plain javascript.
 
 Great! Now the inital setup is out of the way let's make our first hello world in react!
 
 **Hello World**
 
-There are a few things missing that we brushed over
-- Since this is a website we need a html file
-- The actual react code
+There's 2 files we need an HTML file and a react (jsx) file
 
 1 - `index.html`
 ```html
@@ -154,8 +152,8 @@ render(<App />, document.getElementById('app'))
 ```
 Our app lives inside this `App` React Component.
 - We know something is a component if it extends `React.Component`
-- Components have a few important properties but right now all we care about is the render method will returns some JSX which eventually gets turned into HTML
-- We only have to call the main render (the last line of code) once for the entire app, this is also part of the JSX magic is that if a class extends `React.Component` we can instantiate it by calling `<{ClassName} />`
+- Components have a few important properties but right now all we care about is the render method that returns some JSX which eventually gets turned into HTML
+- We only have to call the main render (the last line of code) once for the entire app. Note the `<App />` syntax here, this is JSX syntax to instantiate the react class component.
 - We also need to pass in the html element we will load the app into, in our case it'll be be the `#app` div from index.html
 
 *Run it!!*
