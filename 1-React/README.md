@@ -151,7 +151,7 @@ class App extends React.Component {
 render(<App />, document.getElementById('app'))
 ```
 Our app lives inside this `App` React Component.
-- We know something is a component if it extends `React.Component`
+- Something is a component if it extends `React.Component`
 - Components have a few important properties but right now all we care about is the render method that returns some JSX which eventually gets turned into HTML
 - We only have to call the main render (the last line of code) once for the entire app. Note the `<App />` syntax here, this is JSX syntax to instantiate the react class component.
 - We also need to pass in the html element we will load the app into, in our case it'll be be the `#app` div from index.html
@@ -192,11 +192,8 @@ class App extends React.Component {
 
 render(<App name="Marcel" />, document.getElementById('app')
 ```
-- we can inject code into the jsx templates with `{` `}` we can put any javascript in there that will evaluate to a value.
-
-Now if you rebuild your code with `webpack` you should see "Hello Marcel" or whatever your name is :)
-So as you can tell props are static variables that come through the parent component or in this case, the render function call. They are useful for when you know something won't change over time, or very little. Every parameter you pass into the `App` component get's mapped to a property on `this.props`.
-Neat!
+- The super call within the constructor is mandatory as it maps the props to `this.props` 
+- We can inject JavaScript code into the jsx templates with `{` `}`
 
 *State*
 
@@ -216,12 +213,13 @@ class App extends React.Component {
   //...
 }
 ```
-we'll call the other name `otherName` since javascript has a very loose and dynamic type system we define the state in the constructor with default values mainly for readability to know what type each property is.
+- we store app variables in the `state` property of the class
+- you will set the default state in the constructor, if it doesn't have a real default value just pass in the default value for that type, for our example it'll be the empty string
 
 Now to actually `change the state`
 
 ```JSX
-...
+//...
 class App extends React.Component {
   //...
   
@@ -236,15 +234,25 @@ class App extends React.Component {
     return (
       <div>
         <div>{this.props.name} says "Hello" to {this.state.otherName}!</div>
-        <textarea onKeyPress={this.handleKeyPress.bind(this)} />
+        <input type="text" value={this.state.text} onChange={this.handleChange.bind(this)} />
       </div>
     )
   }
 }
 ```
-If you are familiar with javascript and html this won't look too crazy except you'll probably "wondering why the `.bind(this)`".. Well it's a bit complicated but basically handleKeyPress function get's called in a different context from this class (I know crazy right?) so we need to bind it's `this` variable to our current object'.
-- It's ok if you don't get that right now, just know when you use `this` in a function and you pass it as an event handler, you'll need to bind `this`
-- It's worth mentioning we can only return one HTML element in the render function, so usually we just wrap everything in a div, cause why not..
+We're introducing an important concept here - passing functions to other functions :) 
+- We have an event handler function `handleKeyPress` which we pass to the input element's `onChange` property
+- The way we change state in react is not by directly setting the state property - this is very important as setState is an async function that will trigger the component to update the view
+
+***
+*this rebinding*
+
+You'll notice we aren't just passing in the function normally we also did a `bind(this)`.
+The bind method will take a function and rebind it's `this` variable to the value you pass in and return that function.
+This is important since we are passing the function to an element's onChange property which when called will not be in the context of the class so if we did not call `bind` it wouldn't have access to the state property. - This is not trival and need to see some more examples to get used to it, just know you have to do it when passing an internal function with use of `this` to an external function.
+***
+
+- It's worth mentioning we can only return one HTML element in the render function, so usually we just wrap everything in a div
 
 *Rebuild!!*
 
