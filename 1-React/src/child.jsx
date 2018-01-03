@@ -1,17 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-class Child extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const Child = props =>
+  <li>
+    {props.text}
+  </li>
 
-  render() {
-    return (
-      <div>
-        {this.props.text}
-      </div>
-    );
-  }
-}
-
-export default Child
+export default Child;
