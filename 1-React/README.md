@@ -1,4 +1,4 @@
-React is a `fun` front end library for creating `fun` web apps!
+React is a `fun` front-end library for creating `fun` web apps!
 --
 **"I don't care just let me run it"**
 - clone this repo
@@ -9,7 +9,7 @@ React is a `fun` front end library for creating `fun` web apps!
 
 **Initial setup**
 
-First let's go through some tools / terms and what they do / mean!
+First, let's go through some tools/terms and what they do/mean!
 
 *Node*
 - JavaScript Runtime
@@ -24,7 +24,7 @@ First let's go through some tools / terms and what they do / mean!
 
 *ECMAScript*
 - Standardized Specification for JavaScript
-- Could say JavaScript is an implementation of ECMAScript
+- JavaScript is an implementation of ECMAScript
 
 *Webpack*
 - Bundler
@@ -33,16 +33,16 @@ First let's go through some tools / terms and what they do / mean!
 *Babel*
 - Transpiler
 - Transpiles your new es201X code into older versions of javascript to support older browsers like Internet Explorer
-- Support for non tranditional JavaScript features like annotations and JSX - we care about JSX
+- Support for non-traditional JavaScript features like annotations and JSX - we care about JSX
 
 *JSX*
 - HTML templating superset of JavaScript
-- Write HTMl in JavaScript files with the ability to inject JavaScript into HTML!
+- Write HTML in JavaScript files with the ability to inject JavaScript into HTML!
 
 1 - First thing make sure you have node installed.
 https://nodejs.org/en/download/ (8 or 9 are fine, doesn't matter for this workshop)
 
-  - to make very node / npm is installed correctly on your computer try to run `node -v` and `npm -v` in a cmd prompt / terminal.
+  - to make sure node / npm is installed correctly on your computer try to run `node -v` and `npm -v` in a cmd prompt/terminal.
 
 2 - Make a folder called `intro-to-react` and initialize a package.json
 
@@ -57,9 +57,9 @@ we use `npm install <package>` to install things but it's nice to do `npm instal
 
 `npm install --save webpack react react-dom babel-core babel-loader babel-preset-es2015 babel-preset-react`
 
-check on your `package.json` you should see a bunch of things the `dependencies` object. Also you'll notice a `package-lock.json` file, this is a more accurate (and more complex) mapping of your dependencies, thankfully we never have to directly work in it.
+check your `package.json` you should see a bunch of things in the `dependencies` object. Also, you'll notice a `package-lock.json` file, this is a more accurate (and more complex) mapping of your dependencies, thankfully we never have to directly work in it.
 
-Now that we have everything installed, we need to do a bit of inital config
+Now that we have everything installed, we need to do a bit of initial config
 
 *Babel*
 
@@ -69,8 +69,8 @@ Create a `.babelrc` file and put the following in there
   "presets" : ["es2015", "react"]
 }
 ```
-All we are saying here is we want babel to translate our code from es2015 Spec and the React (JSX) code to regular es5 code. 
-.. Yes the version names of ECMAScript (es) / JavaScript are awful and confusing but all we have to understand is that ES5 is the version of ECMAScript that runs in most browsers.
+All we are saying here is we want babel to translate our code from es2015 Spec and the React (JSX) code to regular es5 code
+.. Yes, the version names of ECMAScript (es) / JavaScript are awful and confusing but all we have to understand is that ES5 is the version of ECMAScript that runs in most browsers
 
 *Webpack*
 
@@ -103,12 +103,12 @@ var config = {
 module.exports = config;
 ```
 This one is a bit more involved
-- first two lines are javascript import import statements
+- first two lines are javascript import statements
 - making the DIR variables just makes it easier below. `__dirname` is a global string variable of your current directory and we'll just say that the bundled file will be in the `build/` folder and our app will live under `src/`
-- next in the config we show the entry (main) javascript / jsx file 
-- we also have what are called loaders, which are intermediate steps that get thrown into the bundling process, so we are adding a `babel` step to transpile our `jsx` code in to plain javascript.
+- next, in the config, we show the entry (main) javascript / jsx file 
+- we also have what are called loaders, which are intermediate steps that get thrown into the bundling process, so we are adding a `babel` step to transpile our `jsx` code into plain javascript.
 
-Great! Now the inital setup is out of the way let's make our first hello world in react!
+Great! Now the initial setup is out of the way, let's make our first hello world in react!
 
 **Hello World**
 
@@ -154,7 +154,7 @@ Our app lives inside this `App` React Component.
 - Something is a component if it extends `React.Component`
 - Components have a few important properties but right now all we care about is the render method that returns some JSX which eventually gets turned into HTML
 - We only have to call the main render (the last line of code) once for the entire app. Note the `<App />` syntax here, this is JSX syntax to instantiate the react class component.
-- We also need to pass in the html element we will load the app into, in our case it'll be be the `#app` div from index.html
+- We also need to pass in the HTML element we will load the app into, in our case, it'll be the `#app` div from index.html
 
 *Run it!!*
 
@@ -164,8 +164,10 @@ Now if you open index.html in a browser you should see "Hello World"!!
 
 **React Basics**
 
-Ok now lets get into React and understand it a bit more. 
-Let's change a few things from the above index.jsx, we want to be able to a) add variables into the template b) change thing dynamically.
+Ok now let's get into React and understand it a bit more. 
+Let's change a few things from the above index.jsx, we want to be able to 
+a) add variables to the template 
+b) change thing dynamically
 
 First, variables.
 
@@ -173,11 +175,9 @@ React has 2 main ways we can (should) inject variables into templates
 1 - Props
 2 - State
 
-First we'll see how Props work..
-
 **Props**
 
-In our above example we are missing one of the key parts of a class, the constructor! Of course we don't need it, but classes aren't too much fun without them, lets update our class to add one.
+In our above example, we are missing one of the key parts of a class, the constructor! Of course, we don't need it, but classes aren't too much fun without them, let's update our class to add one
 ```JSX
 //...
 class App extends React.Component {
@@ -198,9 +198,9 @@ render(<App name="Marcel" />, document.getElementById('app')
 
 **State**
 
-This is all good and fun but not very interactive. Lets add a text field so we can automatically update the person / thing we are greeting.
+This is all good and fun but not very interactive. Let's add a text field so we can automatically update the person/thing we are greeting.
 
-first lets define a state object
+first let's define a state object
 
 ```JSX
 //...
@@ -244,7 +244,7 @@ class App extends React.Component {
 }
 //...
 ```
-We're introducing an important concept here - passing functions to other functions :) 
+We're introducing an important concept here - passing functions to other functions
 - We have an event handler function `handleKeyPress` which we pass to the input element's `onChange` property
 - The way we change state in react is not by directly setting the state property - this is very important as setState is an async function that will trigger the component to update the view
 
@@ -254,10 +254,10 @@ We're introducing an important concept here - passing functions to other functio
 You'll notice we aren't just passing in the function normally to onChange, we also did a `bind(this)`.
 The bind method will take a function and rebind it's `this` variable to the value you pass in and return that function.
 This is important since we are passing the function to an element's onChange property which when called will not be in the context of the `App` class object so if we did not call `bind` it wouldn't have access to `this.state` or `this.props`.
-This is not trival and you'll most likely need to see some more examples to get used to it, just know you have to do it when passing an internal function with use of `this` to an external function.
+This is not trivial and you'll most likely need to see some more examples to get used to it, just know you have to do it when passing an internal function with use of `this` to an external function.
 ***
 
-- It's worth mentioning we can only return one HTML element in the render function, so usually we just wrap everything in a div
+- It's worth mentioning we can only return one HTML element in the render function, so usually, we just wrap everything in a div
 
 **Child Components**
 
@@ -267,7 +267,7 @@ Let's change our app to instead of updating what a single text field says from "
 
 We'll introduce the concept of stateless function components, as the name suggests it's a component that doesn't have the `state` property and because of that we can represent the component by purely it's render function
 
-We'll have a simple example which will be a sort of alias for the `<li>` html element
+We'll have a simple example which will be a sort of alias for the `<li>` HTML element
 
 `src/child.jsx`
 ```JSX
@@ -282,8 +282,8 @@ export default Child;
 ```
 
 - We still need to import react since the jsx gets transpiled to a bunch of `React.createElement()` calls
-- Here I am using Arrow function notation just because it looks pretty.. but it is also concise and common in documentation
-- Last thing we will do is export the `Child` function as default
+- Here I am using Arrow function notation just because it looks pretty... but it is also concise and common in documentation
+- The last thing we will do is export the `Child` function as default
 
 Let's update the render in the index.jsx to make it easier to add components
 
@@ -353,7 +353,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        ...
+        {//...}
         {this.state.childrenText.map(childText => <Child text={childText} />)}
       </div>
     )
@@ -367,7 +367,7 @@ class App extends React.Component {
 Let's step through how the map works.
 `this.state.childrenText` is an array, and arrays have a method called map which will iterate through an array, apply a function to each value and return the new array
 We can think of it as a transformation method, in our case we are transforming it from an array of strings to an array of `Child` components
-Here lies the beauty of JSX, it knows that since you've outputed an array of react components it will just transform to something like this
+Here lies the beauty of JSX, it knows that since you've outputted an array of React components it will just transform into something like this
 ```JSX
 <Child text={this.childrenText[0]>
 <Child text={this.childrenText[1]>
@@ -376,4 +376,4 @@ Here lies the beauty of JSX, it knows that since you've outputed an array of rea
 ```
 ***
 
-You've done it, if all is well you shoul be able to build and everything should work
+You've done it! if all is well you should be able to build and everything should work
