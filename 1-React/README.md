@@ -353,7 +353,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {//...}
+        //...
         {this.state.childrenText.map(childText => <Child text={childText} />)}
       </div>
     )
