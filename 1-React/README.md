@@ -135,8 +135,8 @@ We have two important things here
 
 2 - `src/index.jsx`
 ```JSX
-import React from 'react'
-import { render } from 'react-dom'
+import React from 'react';
+import { render } from 'react-dom';
 
 class App extends React.Component {
   render() {
@@ -175,10 +175,11 @@ React has 2 main ways we can (should) inject variables into templates
 
 First we'll see how Props work..
 
-*Props*
+**Props**
 
 In our above example we are missing one of the key parts of a class, the constructor! Of course we don't need it, but classes aren't too much fun without them, lets update our class to add one.
 ```JSX
+//...
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -186,22 +187,23 @@ class App extends React.Component {
   render() {
     return (
       <div>Hello {this.props.name}</div>
-    )
+    );
   }
 }
 
 render(<App name="Marcel" />, document.getElementById('app')
 ```
-- The super call within the constructor is mandatory as it maps the props to `this.props` 
+- The super call within the constructor is mandatory as it maps the given props to `this.props` 
 - We can inject JavaScript code into the jsx templates with `{` `}`
 
-*State*
+**State**
 
 This is all good and fun but not very interactive. Lets add a text field so we can automatically update the person / thing we are greeting.
 
 first lets define a state object
 
 ```JSX
+//...
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -212,6 +214,7 @@ class App extends React.Component {
   
   //...
 }
+//...
 ```
 - we store app variables in the `state` property of the class
 - you will set the default state in the constructor, if it doesn't have a real default value just pass in the default value for that type, for our example it'll be the empty string
@@ -234,11 +237,12 @@ class App extends React.Component {
     return (
       <div>
         <div>{this.props.name} says "Hello" to {this.state.otherName}!</div>
-        <input type="text" value={this.state.text} onChange={this.handleChange.bind(this)} />
+        <input type="text" onChange={this.handleChange.bind(this)} />
       </div>
-    )
+    );
   }
 }
+//...
 ```
 We're introducing an important concept here - passing functions to other functions :) 
 - We have an event handler function `handleKeyPress` which we pass to the input element's `onChange` property
@@ -247,14 +251,129 @@ We're introducing an important concept here - passing functions to other functio
 ***
 *this rebinding*
 
-You'll notice we aren't just passing in the function normally we also did a `bind(this)`.
+You'll notice we aren't just passing in the function normally to onChange, we also did a `bind(this)`.
 The bind method will take a function and rebind it's `this` variable to the value you pass in and return that function.
-This is important since we are passing the function to an element's onChange property which when called will not be in the context of the class so if we did not call `bind` it wouldn't have access to the state property. - This is not trival and need to see some more examples to get used to it, just know you have to do it when passing an internal function with use of `this` to an external function.
+This is important since we are passing the function to an element's onChange property which when called will not be in the context of the `App` class object so if we did not call `bind` it wouldn't have access to `this.state` or `this.props`.
+This is not trival and you'll most likely need to see some more examples to get used to it, just know you have to do it when passing an internal function with use of `this` to an external function.
 ***
 
 - It's worth mentioning we can only return one HTML element in the render function, so usually we just wrap everything in a div
 
-*Rebuild!!*
+**Child Components**
 
-Write things in that text field and you should see the text updating.
+So far we've only seen a single Component so let's see how we create child components
 
+Let's change our app to instead of updating what a single text field says from "{someone} says hello" to create a list of people who have said hello
+
+We'll introduce the concept of stateless function components, as the name suggests it's a component that doesn't have the `state` property and because of that we can represent the component by purely it's render function
+
+We'll have a simple example which will be a sort of alias for the `<li>` html element
+
+`src/child.jsx`
+```JSX
+import React from 'react';
+
+const Child = props =>
+  <li>
+    {props.text}
+  </li>
+
+export default Child;
+```
+
+- We still need to import react since the jsx gets transpiled to a bunch of `React.createElement()` calls
+- Here I am using Arrow function notation just because it looks pretty.. but it is also concise and common in documentation
+- Last thing we will do is export the `Child` function as default
+
+Let's update the render in the index.jsx to make it easier to add components
+
+`src/index.jsx`
+```JSX
+//...
+class App extends React.Component {
+  //...
+  render() {
+    return (
+      <div>
+        <input type="text" onChange={this.handleChange.bind(this)} />
+        <button onClick={this.addChild.bind(this)} >
+          Add a child
+        </button>
+      </div>
+    )
+  }
+}
+//...
+```
+We got rid of most of the old render, we'll keep the input and a button which will trigger creating a new `Child` component somehow...
+- We'll have to store the child text somewhere so first let's add a property to the state, we'll get to the `this.addChild` soon
+
+```JSX
+//...
+class App extends React.Component {
+  constructor() {
+    this.state = {
+      text: '',
+      childrenText: []
+    };
+  }
+  //...
+}
+//...
+```
+
+- we'll use an array to store the text each child holds
+
+now to implement `addChild`
+
+```JSX
+//...
+class App extends React.Component {
+  //...
+  addChild() {
+    const newChild = `${this.state.text} said Hello!`;
+    this.setState({
+      childrenText: [...this.state.childrenText, newChild]
+    });
+  }
+  //...
+}
+//...
+```
+- We create the text we want to add, then we add it on the end of the list
+- The `[...array, newElem]` syntax is equivalent to `array.concat([newElem])` which is a nice immutable way to "update" an array by creating a new array vs. mutating in place
+
+Time to render the children!
+
+going back to the render function
+```JSX
+//...
+class App extends React.Component {
+  //...
+  render() {
+    return (
+      <div>
+        ...
+        {this.state.childrenText.map(childText => <Child text={childText} />)}
+      </div>
+    )
+  }
+}
+//...
+```
+- All we need to do now is take the `this.state.childrenText` array and transform (or map) it into an array of `Child` components, React will take care of the rest
+
+***
+Let's step through how the map works.
+`this.state.childrenText` is an array, and arrays have a method called map which will iterate through an array, apply a function to each value and return the new array
+We can think of it as a transformation method, in our case we are transforming it from an array of strings to an array of `Child` components
+Here lies the beauty of JSX, it knows that since you've outputed an array of react components it will just transform to something like this
+```JSX
+<Child text={this.childrenText[0]>
+<Child text={this.childrenText[1]>
+<Child text={this.childrenText[2]>
+//...
+```
+***
+
+You've done it, if all is well you shoul be able to build and everything should work
