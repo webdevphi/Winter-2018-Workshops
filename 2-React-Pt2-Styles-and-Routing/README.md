@@ -72,40 +72,40 @@ src/todos.jsx
 import React from 'react'
 
 const Items = props =>
-    <ul>
-        {props.items.map(item => <li>item</li>)}
-    </ul>
+  <ul>
+    {props.items.map(item => <li>item</li>)}
+  </ul>
 
 class Todo extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            input: '',
-            items: []
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      input: '',
+      items: []
     }
+  }
 
-    keyPress(e) {
-        this.setState({
-            input: e.target.value
-        })
-    }
+  keyPress(e) {
+    this.setState({
+      input: e.target.value
+    })
+  }
 
-    addTodo() {
-        this.setState({
-            item: [...this.state.items, this.state.input]
-        })
-    }
+  addTodo() {
+    this.setState({
+      item: [...this.state.items, this.state.input]
+    })
+  }
 
-    render() {
-        return (
-            <div>
-                <input type="text" onChange={this.keyPress.bind(this)} />
-                <button onClick={this.addTodo.bind(this)} >Add a child</button>
-                <Items items={this.state.items} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <input type="text" onChange={this.keyPress.bind(this)} />
+        <button onClick={this.addTodo.bind(this)} >Add a child</button>
+        <Items items={this.state.items} />
+      </div>
+    )
+  }
 }
 ```
 
@@ -118,59 +118,59 @@ src/notes.jsx
 import React from 'react'
 
 const Note = props =>
-    <div>
-        {props.title}
-        <br />
-        <hr />
-        <br />
-        {props.body}
-    </div>
+  <div>
+    {props.title}
+    <br />
+    <hr />
+    <br />
+    {props.body}
+  </div>
 
 class Notes extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            title: '',
-            body: '',
-            notes: [] // { title, body }
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: '',
+      body: '',
+      notes: [] // { title, body }
     }
+  }
 
-    changeTitle(e) {
-        this.setState({
-            title: e.target.value
-        })
-    }
+  changeTitle(e) {
+    this.setState({
+      title: e.target.value
+    })
+  }
 
-    changeBody(e) {
-        this.setState({
-            body: e.target.value
-        })
-    }
+  changeBody(e) {
+    this.setState({
+      body: e.target.value
+    })
+  }
 
-    addNote() {
-        this.setState({
-            notes: [...this.state.notes, {
-                title: this.state.title,
-                body: this.state.body
-            }]
-        })
-    }
+  addNote() {
+    this.setState({
+      notes: [...this.state.notes, {
+        title: this.state.title,
+        body: this.state.body
+      }]
+    })
+  }
 
-    render() {
-        return (
-            <div>
-                Title - <input type="text" onChange={this.changeTitle.bind(this)} />
-                <hr />
-                Body - <input type="text" onChange={this.changeBody.bind(this)} />
-                <br />
-                <button onClick={this.addNote.bind(this)} >Add a child</button>
-                <br />
+  render() {
+    return (
+      <div>
+        Title - <input type="text" onChange={this.changeTitle.bind(this)} />
+        <hr />
+        Body - <input type="text" onChange={this.changeBody.bind(this)} />
+        <br />
+        <button onClick={this.addNote.bind(this)} >Add a child</button>
+        <br />
 
-                Notes - {this.notes.map(({ title, body }) => <Note title={title} body={body} />)}
-            </div>
-        )
-    }
+        Notes - {this.notes.map(({ title, body }) => <Note title={title} body={body} />)}
+      </div>
+    )
+  }
 }
 ```
 
