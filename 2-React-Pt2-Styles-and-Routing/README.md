@@ -38,7 +38,7 @@ To make things easy, take the project from `1-React` and we'll just delete every
 
 *Install*
 
-we'll just need `react-router-dom` on top of what we already have, so just run `npm install --save react-router-dom`
+we'll just need `react-router` and `react-router-dom` on top of what we already have, so just run `npm install --save react-router-dom react-router`
 
 *First Look*
 
@@ -93,14 +93,14 @@ class Todo extends React.Component {
 
   addTodo() {
     this.setState({
-      item: [...this.state.items, this.state.input]
+      items: [...this.state.items, this.state.input]
     })
   }
 
   render() {
     return (
       <div>
-        <input type="text" onChange={this.keyPress.bind(this)} />
+        <input type='text' onChange={this.keyPress.bind(this)} />
         <button onClick={this.addTodo.bind(this)} >Add a child</button>
         <Items items={this.state.items} />
       </div>
@@ -109,9 +109,7 @@ class Todo extends React.Component {
 }
 ```
 
-
-
-Second we will make a page to make notes
+Second we will make a component to make notes
 
 src/notes.jsx
 ```jsx
@@ -122,8 +120,9 @@ const Note = props =>
     {props.title}
     <br />
     <hr />
-    <br />
     {props.body}
+    <br />
+    <hr />
   </div>
 
 class Notes extends React.Component {
@@ -160,9 +159,9 @@ class Notes extends React.Component {
   render() {
     return (
       <div>
-        Title - <input type="text" onChange={this.changeTitle.bind(this)} />
+        <input type='text' placeholder='Title' onChange={this.changeTitle.bind(this)} />
         <hr />
-        Body - <input type="text" onChange={this.changeBody.bind(this)} />
+        Body - <input type='text' placeholder='Body' onChange={this.changeBody.bind(this)} />
         <br />
         <button onClick={this.addNote.bind(this)} >Add a child</button>
         <br />
@@ -174,4 +173,47 @@ class Notes extends React.Component {
 }
 ```
 
-Sweet
+I know these aren't the most exciting examples, but they will do for the purpose of this workshop.
+
+We don't want these components on the same page so we'll do a bare bones navigation between these two components using react-router
+
+This turns out to be actually pretty simple we just need to add a few routes and links to them.
+
+Let's update our index.jsx accordingly
+
+src/index.jsx
+```jsx
+// Needed for jsx
+import React from 'react'
+import { render } from 'react-dom'
+import {
+    BrowserRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom'
+
+import Todo  from './todo.jsx'
+import Notes from './notes.jsx'
+
+const App = props => (
+    <div>
+        <nav>
+            <Link to="/todo" >Todo</Link>
+            <Link to="/notes" >Notes</Link>
+        </nav>
+
+        <Route path="/todo" component={Todo} />
+        <Route path="/notes" component={Notes} />
+    </div>
+)
+
+render(
+    <Router>
+        <App />
+    </Router>, document.getElementById('app'))
+```
+
+So we have a containing div with a nav with a few links and routes below.
+
+- `Link` - A Link component is a react-router's version of an `a` tag. The difference being Link won't do a http request, instead do a lookup on the defined routes and render the right one accordingly
+- `Route` - A Route is where you say your component will be displayed if rendered and defining the url path for it. 
