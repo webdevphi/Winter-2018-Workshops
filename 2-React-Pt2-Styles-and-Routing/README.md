@@ -44,6 +44,7 @@ we'll just need `react-router-dom` on top of what we already have, so just run `
 
 To get started let's make a bare minimum index.jsx
 
+src/index.jsx
 ```jsx
 import React from 'react'
 import { render } from 'react-dom'
@@ -62,3 +63,115 @@ To use react-router we must use the `<Router>` component on the top level. This 
 
 Lets add some routes!!
 
+First lets create our sub components.
+
+First one will be a Todo page to keep track of anything I might need to do.
+
+src/todos.jsx
+```jsx
+import React from 'react'
+
+const Items = props =>
+    <ul>
+        {props.items.map(item => <li>item</li>)}
+    </ul>
+
+class Todo extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            input: '',
+            items: []
+        }
+    }
+
+    keyPress(e) {
+        this.setState({
+            input: e.target.value
+        })
+    }
+
+    addTodo() {
+        this.setState({
+            item: [...this.state.items, this.state.input]
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <input type="text" onChange={this.keyPress.bind(this)} />
+                <button onClick={this.addTodo.bind(this)} >Add a child</button>
+                <Items items={this.state.items} />
+            </div>
+        )
+    }
+}
+```
+
+
+
+Second we will make a page to make notes
+
+src/notes.jsx
+```jsx
+import React from 'react'
+
+const Note = props =>
+    <div>
+        {props.title}
+        <br />
+        <hr />
+        <br />
+        {props.body}
+    </div>
+
+class Notes extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: '',
+            body: '',
+            notes: [] // { title, body }
+        }
+    }
+
+    changeTitle(e) {
+        this.setState({
+            title: e.target.value
+        })
+    }
+
+    changeBody(e) {
+        this.setState({
+            body: e.target.value
+        })
+    }
+
+    addNote() {
+        this.setState({
+            notes: [...this.state.notes, {
+                title: this.state.title,
+                body: this.state.body
+            }]
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                Title - <input type="text" onChange={this.changeTitle.bind(this)} />
+                <hr />
+                Body - <input type="text" onChange={this.changeBody.bind(this)} />
+                <br />
+                <button onClick={this.addNote.bind(this)} >Add a child</button>
+                <br />
+
+                Notes - {this.notes.map(({ title, body }) => <Note title={title} body={body} />)}
+            </div>
+        )
+    }
+}
+```
+
+Sweet
