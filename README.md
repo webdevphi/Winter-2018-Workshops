@@ -10,10 +10,9 @@ Schedule
 
 ```
 - Jan 4    - React Pt 1 -- : Basics
-- Jan 18   - React Pt 2 -- : Routing and Styles
-- Feb 1    - React Pt 3 -- : Redux
-- Feb 15   - Node -------- : Express
-- March 1  - MySQL ------- : Basics - Integration with Node
-- March 15 - Git --------- : Basics - Commands, GitHub, Pull Requests
-- March 29 - AWS and Ngnix : Setup
+- Jan 16   - React Pt 2 -- : Routing and Styles
+- Jan 30   - Node -------- : Express
+- Feb 13   - MySQL ------- : Basics - Integration with Node
+- Feb 27   - Git --------- : Basics - Commands, GitHub, Pull Requests
+- March 13 - AWS and Ngnix : Setup
 ```
